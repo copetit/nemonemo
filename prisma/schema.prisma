@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model User {
+  id          Int        @id @default(autoincrement())
+  username    String?    @unique
+  description String     @db.MediumText
+  createAt    DateTime   @default(now())
+  updateAt    DateTime   @updatedAt
+  Nemonemo    Nemonemo[]
+}
+
+model Nemonemo {
+  id       Int      @id @default(autoincrement())
+  memo     String   @db.MediumText
+  color    String
+  user     User     @relation(fields: [userId], references: [id])
+  userId   Int
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}
