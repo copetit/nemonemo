@@ -1,9 +1,7 @@
-import type { NextPage } from "next";
 import { CirclePicker } from "react-color";
 
 export default function Palette(props: any) {
   const { color, handler } = props;
-  console.log(color.hex);
   const colorArr = [
     "#f44336",
     "#e91e63",
@@ -28,7 +26,7 @@ export default function Palette(props: any) {
   return (
     <CirclePicker
       color={color}
-      onChange={handler}
+      onChangeComplete={handler}
       colors={colorArr}
       circleSpacing={10}
     />
