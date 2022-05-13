@@ -20,8 +20,8 @@ const Home: NextPage = () => {
     console.log(typeof termDays[1]);
   };
   useEffect(() => {
-    const startDate = new Date("2022-05-10");
-    const endDate = new Date("2022-05-15");
+    const startDate = new Date("2022-05-01");
+    const endDate = new Date("2022-05-31");
     setTermDays(getDatesInRange(startDate, endDate));
     fetch(`api/1/${startDate}/${endDate}`)
       .then((res) => res.json())
@@ -39,9 +39,6 @@ const Home: NextPage = () => {
       <div className="p-5">
         {color && nemoDatas ? (
           <div className="grid grid-cols-10 md:grid-cols-14 gap-1">
-            {/* {[...Array(100).keys()].map((_, i) => (
-              <Nemo key={i} date={todayDate} color={color} />
-            ))} */}
             {/* {nemoDatas.map((nemoData) => (
               <Nemo
                 key={nemoData.id}
