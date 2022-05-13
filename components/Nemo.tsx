@@ -12,6 +12,7 @@ export default function Nemo(props: INemoProps) {
   const { date, color } = props;
   console.log(date);
   const [nemoData, setNemoData] = useState<Nemonemo[]>();
+
   useEffect(() => {
     const tomorrow = new Date(date);
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -22,16 +23,15 @@ export default function Nemo(props: INemoProps) {
         setNemoData(data.nemoDatas);
       });
   }, [date]);
+
   return (
-    <>
-      <div
-        className="borderborder-neutral-500 w-10 h-10 "
-        style={{
-          backgroundColor: nemoData?.[0]?.color
-            ? nemoData?.[0]?.color
-            : color.hex,
-        }}
-      ></div>
-    </>
+    <div
+      className="borderborder-neutral-500 w-10 h-10 "
+      style={{
+        backgroundColor: nemoData?.[0]?.color
+          ? nemoData?.[0]?.color
+          : color.hex,
+      }}
+    ></div>
   );
 }

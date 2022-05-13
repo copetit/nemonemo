@@ -13,7 +13,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>
 ) {
-  // console.log(req.query);
   const {
     query: { id, range },
   } = req;
