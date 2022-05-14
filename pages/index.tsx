@@ -3,36 +3,35 @@ import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Nemo from "../components/Nemo";
 import Palette from "../components/Palette";
+import TodayNemo from "../components/TodayNemo";
 import { getDatesInRange } from "../libs/getDatesInRange";
 interface Icolor {
   hex: string;
 }
 
 const Home: NextPage = () => {
-  const [color, setColor] = useState({ hex: "#50d71e" });
+  const [color, setColor] = useState({ hex: "#c3c3c3" });
   const [nemoDatas, setNemoDatas] = useState<Nemonemo[]>([]);
   const [termDays, setTermDays] = useState<Date[]>([]);
-
+  const TodayDate = new Date();
   const handleChange = (color: Icolor) => {
-    console.log(color.hex);
     setColor(color);
-    console.log(termDays[1]);
-    console.log(typeof termDays[1]);
   };
+
   useEffect(() => {
     const startDate = new Date("2022-05-01");
-    const endDate = new Date("2022-05-31");
-    setTermDays(getDatesInRange(startDate, endDate));
-    fetch(`api/1/${startDate}/${endDate}`)
+    const TodayDate = new Date();
+    const yesterday = new Date(TodayDate);
+    yesterday.setDate(yesterday.getDate() - 1);
+    setTermDays(getDatesInRange(startDate, yesterday));
+    fetch(`api/1/${startDate}/${TodayDate}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.nemoDatas);
         setNemoDatas(data.nemoDatas);
       });
   }, []);
 
   // get Data 1 month
-  const todayDate = new Date(20220101);
   return (
     <div className="mx-auto w-full max-w-2xl">
       <Palette color={color} handler={handleChange} />
@@ -50,6 +49,7 @@ const Home: NextPage = () => {
             {termDays.map((termDay, i) => (
               <Nemo key={i} date={termDay} color={color} />
             ))}
+            <TodayNemo date={TodayDate} color={color} />
           </div>
         ) : null}
       </div>

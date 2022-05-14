@@ -17,7 +17,7 @@ export default async function handler(
       userId: +userId.toString(),
     },
   });
-  console.log(typeof req.query.id);
+
   console.log(nemoDatas);
   res.json({ ok: true, nemoDatas });
 }

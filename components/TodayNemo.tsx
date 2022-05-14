@@ -9,7 +9,7 @@ interface INemoProps {
   color: Icolor;
 }
 
-export default function Nemo(props: INemoProps) {
+export default function TodayNemo(props: INemoProps) {
   const { date, color } = props;
   const [nemoData, setNemoData] = useState<Nemonemo>();
 
@@ -29,7 +29,7 @@ export default function Nemo(props: INemoProps) {
       <div
         className="borderborder-neutral-500 w-10 h-10 "
         style={{
-          backgroundColor: nemoData ? nemoData.color : "#c3c3c3",
+          backgroundColor: nemoData ? nemoData.color : color.hex,
         }}
       />
     </>
