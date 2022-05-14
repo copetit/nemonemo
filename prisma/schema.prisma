@@ -23,7 +23,7 @@ model User {
 
 model Nemonemo {
   id       Int      @id @default(autoincrement())
-  memo     String   @db.MediumText
+  memo     String?  @db.MediumText
   color    String
   user     User     @relation(fields: [userId], references: [id])
   userId   Int

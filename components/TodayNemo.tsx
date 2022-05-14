@@ -12,14 +12,15 @@ interface INemoProps {
 export default function TodayNemo(props: INemoProps) {
   const { date, color } = props;
   const [nemoData, setNemoData] = useState<Nemonemo>();
-
+  const handler = () => {
+    console.log(nemoData);
+  };
   useEffect(() => {
     const tomorrow = new Date(date);
     tomorrow.setDate(tomorrow.getDate() + 1);
     fetch(`api/1/${date}/${tomorrow}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.nemoDatas?.[0]?.color);
         setNemoData(data.nemoDatas[0]);
       });
   }, [date]);
@@ -27,7 +28,8 @@ export default function TodayNemo(props: INemoProps) {
   return (
     <>
       <div
-        className="borderborder-neutral-500 w-10 h-10 "
+        onClick={handler}
+        className="borderborder-neutral-500 w-10 h-10 cursor-pointer"
         style={{
           backgroundColor: nemoData ? nemoData.color : color.hex,
         }}

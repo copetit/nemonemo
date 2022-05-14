@@ -19,7 +19,7 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    const startDate = new Date("2022-05-01");
+    const startDate = new Date("2022-01-01");
     const TodayDate = new Date();
     const yesterday = new Date(TodayDate);
     yesterday.setDate(yesterday.getDate() - 1);
@@ -38,13 +38,6 @@ const Home: NextPage = () => {
       <div className="p-5">
         {color && nemoDatas ? (
           <div className="grid grid-cols-10 md:grid-cols-14 gap-1">
-            {/* {nemoDatas.map((nemoData) => (
-              <Nemo
-                key={nemoData.id}
-                date={nemoData.createAt}
-                color={{ hex: nemoData.color }}
-              />
-            ))} */}
             {/* 日付のリストを作成 */}
             {termDays.map((termDay, i) => (
               <Nemo key={i} date={termDay} color={color} />
