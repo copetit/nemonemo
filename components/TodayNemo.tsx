@@ -29,7 +29,7 @@ export default function TodayNemo(props: INemoProps) {
     <>
       <div
         onClick={handler}
-        className="borderborder-neutral-500 w-10 h-10 cursor-pointer"
+        className="borderborder-neutral-500 w-10 h-10 cursor-pointer border-4 border-red-400"
         style={{
           backgroundColor: nemoData ? nemoData.color : color.hex,
         }}
