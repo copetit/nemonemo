@@ -16,6 +16,7 @@ export default async function handler(
   const {
     query: { id, range },
   } = req;
+
   const startDate = new Date(range[0]);
   const endDate = new Date(range[1]);
 

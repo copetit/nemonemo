@@ -3,7 +3,6 @@ import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Nemo from "../components/Nemo";
 import Palette from "../components/Palette";
-import TodayNemo from "../components/TodayNemo";
 import { getDatesInRange } from "../libs/getDatesInRange";
 import { SubmitHandler, SubmitErrorHandler, useForm } from "react-hook-form";
 
@@ -41,12 +40,14 @@ const Home: NextPage = () => {
     console.log("失敗");
     console.log(errors);
   };
-
+  // get Datas dateRange
   useEffect(() => {
     const startDate = new Date("2022-01-01");
     const TodayDate = new Date();
+    TodayDate.setHours(0, 0, 0, 0);
     const yesterday = new Date(TodayDate);
     yesterday.setDate(yesterday.getDate() - 1);
+
     setTermDays(getDatesInRange(startDate, yesterday));
     fetch(`api/1/${startDate}/${TodayDate}`)
       .then((res) => res.json())
@@ -63,9 +64,9 @@ const Home: NextPage = () => {
           <div className="grid grid-cols-10 md:grid-cols-14 gap-1">
             {/* 日付のリストを作成 */}
             {termDays.map((termDay, i) => (
-              <Nemo key={i} date={termDay} color={color} />
+              <Nemo key={i} date={termDay} />
             ))}
-            <TodayNemo date={TodayDate} color={color} />
+            <Nemo date={TodayDate} color={color} />
           </div>
         ) : null}
       </div>
