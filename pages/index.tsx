@@ -44,6 +44,13 @@ const Home: NextPage = () => {
     mode: "onChange",
   });
   const isValid: SubmitHandler<INemoForm> = (data: INemoForm) => {
+    fetch(`api/1/upload`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
     console.log(data);
   };
   const isInValid: SubmitErrorHandler<INemoForm> = (errors: any) => {

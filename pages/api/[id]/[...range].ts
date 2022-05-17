@@ -28,6 +28,7 @@ export default async function handler(
         lt: endDate,
       },
     },
+    orderBy: { createAt: "desc" },
   });
 
   res.json({ ok: true, nemoDatas });
