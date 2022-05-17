@@ -43,7 +43,7 @@ export default function Nemo(props: INemoProps) {
         onMouseLeave={onMouseLeaveHandler}
         onMouseOver={onMouseOverHandler}
         onClick={onClickHandler}
-        className="borderborder-neutral-500 w-10 h-10 cursor-pointer"
+        className="borderborder-neutral-500 h-10 cursor-pointer"
         style={{
           backgroundColor: nemoData
             ? nemoData.color
