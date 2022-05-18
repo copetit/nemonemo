@@ -8,10 +8,11 @@ interface Icolor {
 interface INemoProps {
   date: Date;
   color?: Icolor;
+  setNemoDetail: any;
 }
 
 export default function Nemo(props: INemoProps) {
-  const { date, color } = props;
+  const { date, color, setNemoDetail } = props;
   const [nemoData, setNemoData] = useState<Nemonemo>();
   const [showNemoDate, setShowNemoDate] = useState<Boolean>(false);
   const onMouseOverHandler = () => {
@@ -19,6 +20,7 @@ export default function Nemo(props: INemoProps) {
   };
   const onClickHandler = () => {
     console.log(nemoData);
+    setNemoDetail(nemoData);
   };
   const onMouseLeaveHandler = () => {
     setShowNemoDate(false);
@@ -49,7 +51,7 @@ export default function Nemo(props: INemoProps) {
             ? nemoData.color
             : color
             ? color.hex
-            : "#c3c3c3",
+            : "#dfdfdf",
         }}
       />
     </div>
