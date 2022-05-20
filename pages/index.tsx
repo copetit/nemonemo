@@ -103,6 +103,7 @@ const Home: NextPage = () => {
               <Nemo key={i} date={termDay} setNemoDetail={setNemoDetail} />
             ))}
             <Nemo
+              className={"animate-bounce"}
               date={TodayDate}
               color={color}
               setNemoDetail={setNemoDetail}
@@ -110,34 +111,36 @@ const Home: NextPage = () => {
           </div>
         )}
       </div>
-      {nemoDetail ? <NemoDetail nemoDetail={nemoDetail} /> : null}
+      {/* detail message */}
+      <NemoDetail nemoDetail={nemoDetail} />
       {/* input area */}
-      <div>
-        <Palette color={color} handler={handleChange} />
-      </div>
-      <div className="mt-1 font-semibold text-rose-500">
-        {errors.color?.message}
-      </div>
 
       <form onSubmit={handleSubmit(isValid, isInValid)}>
-        <input
-          {...register("color", {
-            validate: (value) =>
-              value !== "#c3c3c3" || "色を選択してください。",
-          })}
-          className="border-2 hidden"
-          // value={color.hex}
-          name="color"
-        />
-        <textarea
-          className="border-2"
-          {...register("memo", { required: "メモを入力してください。" })}
-          name="memo"
-          rows={3}
-        ></textarea>
+        <div className="flex justify-center">
+          <Palette color={color} handler={handleChange} />
+          <input
+            {...register("color", {
+              validate: (value) =>
+                value !== "#c3c3c3" || "色を選択してください。",
+            })}
+            className="border-2 hidden"
+            // value={color.hex}
+            name="color"
+          />
+          <textarea
+            className="border-2"
+            {...register("memo", { required: "メモを入力してください。" })}
+            name="memo"
+            rows={3}
+          />
+        </div>
+        <div className="mt-1 font-semibold text-rose-500">
+          {errors.color?.message}
+        </div>
         <div className="mt-1 font-semibold text-rose-500">
           {errors.memo?.message}
         </div>
+
         <button
           className="border-2"
           type="submit"

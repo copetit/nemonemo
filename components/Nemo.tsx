@@ -1,6 +1,6 @@
 import { Nemonemo } from "@prisma/client";
 import { useEffect, useState } from "react";
-import ShowDate from "./showDate";
+import ShowDate from "./ShowDate";
 
 interface Icolor {
   hex: string;
@@ -9,17 +9,17 @@ interface INemoProps {
   date: Date;
   color?: Icolor;
   setNemoDetail: any;
+  className?: string;
 }
 
 export default function Nemo(props: INemoProps) {
-  const { date, color, setNemoDetail } = props;
+  const { date, color, setNemoDetail, className } = props;
   const [nemoData, setNemoData] = useState<Nemonemo>();
   const [showNemoDate, setShowNemoDate] = useState<Boolean>(false);
   const onMouseOverHandler = () => {
     setShowNemoDate(true);
   };
   const onClickHandler = () => {
-    console.log(nemoData);
     setNemoDetail(nemoData);
   };
   const onMouseLeaveHandler = () => {
@@ -38,9 +38,9 @@ export default function Nemo(props: INemoProps) {
   }, [date]);
 
   return (
-    <div className="relative">
+    // Today && no data = bounce
+    <div className={`relative ${className && !nemoData ? className : ""} `}>
       {showNemoDate ? <ShowDate nemoDate={date} /> : null}
-      {/* <ShowDate nemoDate={date} /> */}
       <div
         onMouseLeave={onMouseLeaveHandler}
         onMouseOver={onMouseOverHandler}
