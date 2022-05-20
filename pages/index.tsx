@@ -20,7 +20,7 @@ const Home: NextPage = () => {
   const [color, setColor] = useState({ hex: "#c3c3c3" });
   const [nemoDatas, setNemoDatas] = useState<Nemonemo[]>([]);
   const [termDays, setTermDays] = useState<Date[]>([]);
-  const [gridGap, setGridGap] = useState(1);
+  const [gridGap, setGridGap] = useState(true);
   const [nemoDetail, setNemoDetail] = useState<Nemonemo>();
   const TodayDate = new Date();
 
@@ -28,7 +28,9 @@ const Home: NextPage = () => {
     setColor(color);
   };
 
-  const gridGapHandler = () => {};
+  const gridGapHandler = () => {
+    setGridGap(!gridGap);
+  };
 
   // useForm
   const {
@@ -56,7 +58,6 @@ const Home: NextPage = () => {
 
   // get Datas dateRange
   useEffect(() => {
-    setGridGap(1);
     const startDate = new Date("2022-01-01");
     const TodayDate = new Date();
     TodayDate.setHours(0, 0, 0, 0);
@@ -91,8 +92,12 @@ const Home: NextPage = () => {
             />
           </svg>
         </button>
-        {color && nemoDatas && gridGap ? (
-          <div className={`grid grid-cols-10 md:grid-cols-14 gap-1`}>
+        {color && nemoDatas && (
+          <div
+            className={`grid grid-cols-10 md:grid-cols-14 ${
+              gridGap ? "gap-1" : ""
+            }`}
+          >
             {/* 日付のリストを作成 */}
             {termDays.map((termDay, i) => (
               <Nemo key={i} date={termDay} setNemoDetail={setNemoDetail} />
@@ -103,7 +108,7 @@ const Home: NextPage = () => {
               setNemoDetail={setNemoDetail}
             />
           </div>
-        ) : null}
+        )}
       </div>
       {nemoDetail ? <NemoDetail nemoDetail={nemoDetail} /> : null}
       {/* input area */}
