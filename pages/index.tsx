@@ -6,6 +6,7 @@ import Palette from "../components/Palette";
 import { getDatesInRange } from "../libs/getDatesInRange";
 import { SubmitHandler, SubmitErrorHandler, useForm } from "react-hook-form";
 import NemoDetail from "../components/NemoDetail";
+import { useRouter } from "next/router";
 
 interface Icolor {
   hex: string;
@@ -17,15 +18,20 @@ interface INemoForm {
 }
 
 const Home: NextPage = () => {
-  const [color, setColor] = useState({ hex: "#c3c3c3" });
+  const [color, setColor] = useState({ hex: "#dfdfdf" });
   const [nemoDatas, setNemoDatas] = useState<Nemonemo[]>([]);
   const [termDays, setTermDays] = useState<Date[]>([]);
   const [gridGap, setGridGap] = useState(true);
+  const [showInput, setShowInput] = useState(false);
   const [nemoDetail, setNemoDetail] = useState<Nemonemo>();
   const TodayDate = new Date();
 
-  const handleChange = (color: Icolor) => {
+  const changeHandler = (color: Icolor) => {
     setColor(color);
+  };
+
+  const clickHandler = (state: boolean) => {
+    setShowInput(state);
   };
 
   const gridGapHandler = () => {
@@ -41,6 +47,8 @@ const Home: NextPage = () => {
   } = useForm<INemoForm>({
     mode: "onChange",
   });
+  const router = useRouter();
+
   const isValid: SubmitHandler<INemoForm> = (data: INemoForm) => {
     fetch(`api/1/upload`, {
       method: "POST",
@@ -50,6 +58,8 @@ const Home: NextPage = () => {
       body: JSON.stringify(data),
     });
     console.log(data);
+    setShowInput(false);
+    router.push("/");
   };
   const isInValid: SubmitErrorHandler<INemoForm> = (errors: any) => {
     console.log("失敗");
@@ -94,61 +104,75 @@ const Home: NextPage = () => {
         </button>
         {color && nemoDatas && (
           <div
-            className={`grid grid-cols-10 md:grid-cols-14 ${
+            className={`grid grid-cols-8 sm:grid-cols-10  md:grid-cols-10 lg:grid-cols-14 ${
               gridGap ? "gap-1" : ""
             }`}
           >
             {/* 日付のリストを作成 */}
             {termDays.map((termDay, i) => (
-              <Nemo key={i} date={termDay} setNemoDetail={setNemoDetail} />
+              <div key={i} onClick={() => clickHandler(false)}>
+                <Nemo date={termDay} setNemoDetail={setNemoDetail} />
+              </div>
             ))}
-            <Nemo
-              className={"animate-bounce"}
-              date={TodayDate}
-              color={color}
-              setNemoDetail={setNemoDetail}
-            />
+
+            <div onClick={() => clickHandler(true)}>
+              <Nemo
+                className={"animate-bounce"}
+                date={TodayDate}
+                color={color}
+                setNemoDetail={setNemoDetail}
+              />
+            </div>
           </div>
         )}
       </div>
-      {/* detail message */}
+      {/* detail message area */}
       <NemoDetail nemoDetail={nemoDetail} />
       {/* input area */}
-
-      <form onSubmit={handleSubmit(isValid, isInValid)}>
-        <div className="flex justify-center">
-          <Palette color={color} handler={handleChange} />
-          <input
-            {...register("color", {
-              validate: (value) =>
-                value !== "#c3c3c3" || "色を選択してください。",
-            })}
-            className="border-2 hidden"
-            // value={color.hex}
-            name="color"
-          />
-          <textarea
-            className="border-2"
-            {...register("memo", { required: "メモを入力してください。" })}
-            name="memo"
-            rows={3}
-          />
+      {showInput && (
+        <div className="p-5">
+          <form
+            className="bg-gray-200 p-5 space-y-5 rounded-md shadow-md"
+            onSubmit={handleSubmit(isValid, isInValid)}
+          >
+            <p className="text-center text-lg sm:text-2xl font-bold text-gray-600">
+              Today Color
+            </p>
+            <div className="flex justify-center">
+              <Palette color={color} handler={changeHandler} />
+              <input
+                {...register("color", {
+                  validate: (value) =>
+                    value !== "#dfdfdf" || "色を選択してください",
+                })}
+                className="border-2 hidden"
+                name="color"
+              />
+              <textarea
+                className="border-2 resize-none focus:outline-none p-2 rounded-md"
+                {...register("memo", { required: "メモを入力してください" })}
+                name="memo"
+                rows={3}
+              />
+            </div>
+            <div className="my-3">
+              <div className="mt-1 font-semibold text-rose-500 text-center">
+                {errors.color?.message}
+              </div>
+              <div className="mt-1 font-semibold text-rose-500 text-center">
+                {errors.memo?.message}
+              </div>
+            </div>
+            <button
+              className="px-5 py-3 rounded-lg flex justify-center w-full sm:w-1/2 mx-auto my-3 bg-gradient-to-r from-green-400 to-blue-500 shadow-md  text-white space tracking-wider"
+              type="submit"
+              onClick={() => setValue("color", color.hex)}
+            >
+              SUBMIT
+            </button>
+          </form>
         </div>
-        <div className="mt-1 font-semibold text-rose-500">
-          {errors.color?.message}
-        </div>
-        <div className="mt-1 font-semibold text-rose-500">
-          {errors.memo?.message}
-        </div>
-
-        <button
-          className="border-2"
-          type="submit"
-          onClick={() => setValue("color", color.hex)}
-        >
-          送信
-        </button>
-      </form>
+      )}
     </div>
   );
 };
