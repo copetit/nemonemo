@@ -11,7 +11,7 @@ export default function NemoDetail(props: any) {
             backgroundColor: nemoDetail ? nemoDetail?.color : "#c3c3c3",
           }}
         >
-          <p className="text-sm sm:text-base">
+          <p className="text-sm sm:text-base font-semibold">
             {nemoDetail ? nemoDate.toDateString() : ""}
           </p>
         </div>

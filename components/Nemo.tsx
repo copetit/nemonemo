@@ -39,7 +39,11 @@ export default function Nemo(props: INemoProps) {
 
   return (
     // Today && no data = bounce
-    <div className={`relative ${className && !nemoData ? className : ""} `}>
+    <div
+      className={`relative hover:scale-105 transition-transform ${
+        className && !nemoData ? className : ""
+      } `}
+    >
       {showNemoDate ? <ShowDate nemoDate={date} /> : null}
       <div
         onMouseLeave={onMouseLeaveHandler}

@@ -164,7 +164,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             <button
-              className="px-5 py-3 rounded-lg flex justify-center w-full sm:w-1/2 mx-auto my-3 bg-gradient-to-r from-green-400 to-blue-500 shadow-md  text-white space tracking-wider"
+              className="px-5 py-3 rounded-lg flex justify-center w-full sm:w-1/2 mx-auto my-3 bg-gradient-to-r transition-transform from-green-400 to-blue-500 shadow-md  text-white hover:scale-105 tracking-wider"
               type="submit"
               onClick={() => setValue("color", color.hex)}
             >
