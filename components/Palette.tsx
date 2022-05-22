@@ -15,7 +15,6 @@ export default function Palette(props: any) {
     "#ffc107",
     "#ff9800",
     "#f44336",
-
     "#c3c3c3",
     "black",
   ];
