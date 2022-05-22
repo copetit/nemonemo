@@ -1,4 +1,8 @@
-# NEMONEMO
+
+<div align="center">
+  <img src="/public/Nemo.svg" width="150" >
+  <h1>NEMONEMO</h1>
+</div>
 
 Pick the Today's color based on your mood!
 
