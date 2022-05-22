@@ -26,7 +26,7 @@ export default function Nemo(props: INemoProps) {
     setShowNemoDate(false);
   };
   useEffect(() => {
-    // time clear
+    // datetime clear
     const tomorrow = new Date(date.setHours(0, 0, 0, 0));
     tomorrow.setDate(tomorrow.getDate() + 1);
 
@@ -38,7 +38,7 @@ export default function Nemo(props: INemoProps) {
   }, [date]);
 
   return (
-    // Today && no data = bounce
+    // Today && no Data = bouncing Nemo
     <div
       className={`relative hover:scale-105 transition-transform ${
         className && !nemoData ? className : ""
