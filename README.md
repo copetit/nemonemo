@@ -20,7 +20,7 @@ Pick the Today's color based on your mood!
 - react-color
 
 ## Setup
-⚠️ Should make PlanetScale DB.
+⚠️ Should make [PlanetScale DB](https://planetscale.com/).
 
 ```bash
 $ cd nemonemo/
