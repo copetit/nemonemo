@@ -1,6 +1,6 @@
 import { Nemonemo } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
-import client from "../../../libs/client";
+import client from "@libs/client";
 
 type ResponseType = {
   ok: boolean;
@@ -18,6 +18,5 @@ export default async function handler(
     },
   });
 
-  console.log(nemoDatas);
   res.json({ ok: true, nemoDatas });
 }

@@ -1,11 +1,11 @@
 import { Nemonemo } from "@prisma/client";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import Nemo from "../components/Nemo";
-import Palette from "../components/Palette";
-import { getDatesInRange } from "../libs/getDatesInRange";
+import Nemo from "@components/Nemo";
+import Palette from "@components/Palette";
+import { getDatesInRange } from "@libs/getDatesInRange";
 import { SubmitHandler, SubmitErrorHandler, useForm } from "react-hook-form";
-import NemoDetail from "../components/NemoDetail";
+import NemoDetail from "@components/NemoDetail";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
