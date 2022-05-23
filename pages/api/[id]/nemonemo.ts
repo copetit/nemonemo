@@ -7,6 +7,8 @@ type ResponseType = {
   nemoDatas: Nemonemo[];
 };
 
+// Get Data by user id API
+// response nemoDatas
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>

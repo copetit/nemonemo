@@ -9,7 +9,7 @@ type ResponseType = {
   message?: string;
 };
 
-// get Data range
+// Get Data by date range API
 // response nemoDatas
 export default async function handler(
   req: NextApiRequest,

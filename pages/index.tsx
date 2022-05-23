@@ -31,15 +31,12 @@ const Home: NextPage = () => {
   const changeHandler = (color: Icolor) => {
     setColor(color);
   };
-
   const clickHandler = (state: boolean) => {
     setShowInput(state);
   };
-
   const gridGapHandler = () => {
     setGridGap(!gridGap);
   };
-
   // useForm
   const {
     register,
@@ -50,7 +47,6 @@ const Home: NextPage = () => {
     mode: "onChange",
   });
   const router = useRouter();
-
   const isValid: SubmitHandler<INemoForm> = (data: INemoForm) => {
     fetch(`api/1/upload`, {
       method: "POST",
@@ -59,7 +55,6 @@ const Home: NextPage = () => {
       },
       body: JSON.stringify(data),
     });
-    console.log(data);
     setShowInput(false);
     router.push("/");
   };
@@ -84,7 +79,6 @@ const Home: NextPage = () => {
       });
   }, []);
 
-  // get Data 1 month
   return (
     <div className="mx-auto w-full max-w-2xl">
       <div className="px-5 pt-5">
@@ -111,13 +105,13 @@ const Home: NextPage = () => {
             </svg>
           </button>
         </div>
+        {/* nemo data blocks */}
         {color && nemoDatas && (
           <div
             className={`grid grid-cols-8 sm:grid-cols-10  md:grid-cols-10 lg:grid-cols-14 ${
               gridGap ? "gap-1" : ""
             }`}
           >
-            {/* 日付のリストを作成 */}
             {termDays.map((termDay, i) => (
               <div key={i} onClick={() => clickHandler(false)}>
                 <Nemo date={termDay} setNemoDetail={setNemoDetail} />
@@ -137,7 +131,8 @@ const Home: NextPage = () => {
       </div>
       {/* detail message area */}
       <NemoDetail nemoDetail={nemoDetail} />
-      {/* input area */}
+
+      {/* input area TODO: Refactoring* */}
       {showInput && (
         <div className="p-5">
           <form
@@ -164,6 +159,7 @@ const Home: NextPage = () => {
                 rows={3}
               />
             </div>
+            {/* error Area */}
             <div className="my-3">
               <div className="mt-1 font-semibold text-rose-500 text-center">
                 {errors.color?.message}

@@ -7,6 +7,7 @@ type ResponseType = {
   nemoData: Nemonemo;
 };
 
+// upload color, memo API
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseType>

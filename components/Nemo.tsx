@@ -26,7 +26,7 @@ export default function Nemo(props: INemoProps) {
     setShowNemoDate(false);
   };
   useEffect(() => {
-    // datetime clear
+    // Clear datetime
     const tomorrow = new Date(date.setHours(0, 0, 0, 0));
     tomorrow.setDate(tomorrow.getDate() + 1);
 
