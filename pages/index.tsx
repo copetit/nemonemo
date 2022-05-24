@@ -9,6 +9,8 @@ import NemoDetail from "@components/NemoDetail";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+const Picker = dynamic(() => import("emoji-picker-react"), { ssr: false });
 
 interface Icolor {
   hex: string;
@@ -24,10 +26,20 @@ const Home: NextPage = () => {
   const [nemoDatas, setNemoDatas] = useState<Nemonemo[]>([]);
   const [termDays, setTermDays] = useState<Date[]>([]);
   const [gridGap, setGridGap] = useState(true);
+  const [showEmoji, setShowEmoji] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [nemoDetail, setNemoDetail] = useState<Nemonemo>();
   const TodayDate = new Date();
+  const [memo, setMemo] = useState([]);
 
+  const onEmojiShowCkick = () => {
+    console.log(showEmoji);
+    setShowEmoji(!showEmoji);
+  };
+  const onEmojiClick = (event, emojiObject: any) => {
+    console.log(emojiObject);
+    setMemo((prevInput) => prevInput + emojiObject.emoji);
+  };
   const changeHandler = (color: Icolor) => {
     setColor(color);
   };
@@ -88,7 +100,7 @@ const Home: NextPage = () => {
       </div>
       <div className="p-5">
         <div className="flex justify-end my-2 hover:text-amber-500 transition-colors">
-          <button className="" onClick={gridGapHandler}>
+          <button onClick={gridGapHandler}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -142,7 +154,7 @@ const Home: NextPage = () => {
             <p className="text-center text-lg sm:text-2xl font-bold text-gray-600">
               Today Color
             </p>
-            <div className="flex justify-center">
+            <div className="flex justify-center relative">
               <Palette color={color} handler={changeHandler} />
               <input
                 {...register("color", {
@@ -154,10 +166,50 @@ const Home: NextPage = () => {
               />
               <textarea
                 className="border-2 resize-none focus:outline-none p-2 rounded-md"
-                {...register("memo", { required: "メモを入力してください" })}
+                {...register("memo", {
+                  onChange: (e) => {
+                    console.log(e.target.value);
+                    setMemo(e.target.value);
+                  },
+                  required: "メモを入力してください",
+                })}
                 name="memo"
+                value={memo}
                 rows={3}
               />
+              <button
+                className=" flex items-end p-2"
+                type="button"
+                onClick={onEmojiShowCkick}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </button>
+              {showEmoji ? (
+                <div className=" absolute -right-52 bottom-14">
+                  <Picker
+                    disableSearchBar={true}
+                    onEmojiClick={onEmojiClick}
+                    disableSkinTonePicker={true}
+                    groupVisibility={{
+                      recently_used: false,
+                      flags: false,
+                    }}
+                  />
+                </div>
+              ) : null}
             </div>
             {/* error Area */}
             <div className="my-3">

@@ -19,7 +19,7 @@ export default function Palette(props: any) {
     "#C32BAD",
     "#A8FF3E",
     "#c3c3c3",
-    "black",
+    "#000000",
   ];
 
   return (
