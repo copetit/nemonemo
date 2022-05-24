@@ -36,8 +36,7 @@ const Home: NextPage = () => {
     console.log(showEmoji);
     setShowEmoji(!showEmoji);
   };
-  const onEmojiClick = (event, emojiObject: any) => {
-    console.log(emojiObject);
+  const onEmojiClick = (event, emojiObject) => {
     setMemo((prevInput) => prevInput + emojiObject.emoji);
   };
   const changeHandler = (color: Icolor) => {
