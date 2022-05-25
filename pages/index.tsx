@@ -6,7 +6,6 @@ import Palette from "@components/Palette";
 import { getDatesInRange } from "@libs/getDatesInRange";
 import { SubmitHandler, SubmitErrorHandler, useForm } from "react-hook-form";
 import NemoDetail from "@components/NemoDetail";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -46,7 +45,7 @@ const Home: NextPage = () => {
   } = useForm<INemoForm>({
     mode: "onChange",
   });
-  const router = useRouter();
+
   const isValid: SubmitHandler<INemoForm> = (data: INemoForm) => {
     fetch(`api/1/upload`, {
       method: "POST",
@@ -56,7 +55,6 @@ const Home: NextPage = () => {
       body: JSON.stringify(data),
     });
     setShowInput(false);
-    router.push("/");
   };
   const isInValid: SubmitErrorHandler<INemoForm> = (errors: any) => {
     console.log("失敗");
