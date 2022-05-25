@@ -9,6 +9,8 @@ import NemoDetail from "@components/NemoDetail";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface Icolor {
   hex: string;
@@ -27,6 +29,8 @@ const Home: NextPage = () => {
   const [showInput, setShowInput] = useState(false);
   const [nemoDetail, setNemoDetail] = useState<Nemonemo>();
   const TodayDate = new Date();
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [startDate, endDate] = dateRange;
 
   const changeHandler = (color: Icolor) => {
     setColor(color);
@@ -86,6 +90,16 @@ const Home: NextPage = () => {
           <Image src="/Nemo.svg" alt="logo" width={48} height={48} />
         </Link>
       </div>
+
+      <DatePicker
+        className="border-2"
+        selectsRange={true}
+        startDate={startDate}
+        endDate={endDate}
+        onChange={(update: any) => {
+          setDateRange(update);
+        }}
+      />
       <div className="p-5">
         <div className="flex justify-end my-2 hover:text-amber-500 transition-colors">
           <button className="" onClick={gridGapHandler}>
