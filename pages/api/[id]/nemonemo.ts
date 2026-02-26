@@ -5,6 +5,7 @@ import client from "@libs/client";
 type ResponseType = {
   ok: boolean;
   nemoDatas: Nemonemo[];
+  message?: string;
 };
 
 // Get Data by user id API
@@ -14,6 +15,12 @@ export default async function handler(
   res: NextApiResponse<ResponseType>
 ) {
   const userId = req.query.id;
+  if (!userId) {
+    res
+      .status(400)
+      .json({ ok: false, nemoDatas: [], message: "ID is required." });
+    return;
+  }
   const nemoDatas = await client.nemonemo.findMany({
     where: {
       userId: +userId.toString(),

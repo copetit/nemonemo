@@ -18,8 +18,13 @@ export default async function handler(
   const {
     query: { id, range },
   } = req;
-  if (range.length !== 2) {
+  if (!id) {
+    res.status(400).json({ ok: false, message: "ID is required." });
+    return;
+  }
+  if (!range || range.length !== 2) {
     res.status(405).json({ ok: false, message: "Parameter must be 2." });
+    return;
   }
 
   if (isInvalidDate(new Date(range[0]) || isInvalidDate(new Date(range[0])))) {
