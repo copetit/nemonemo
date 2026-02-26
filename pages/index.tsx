@@ -94,7 +94,7 @@ const Home: NextPage = () => {
           <Image src="/Nemo.svg" alt="logo" width={48} height={48} />
         </Link>
       </div>
-
+      {/* 
       <DatePicker
         className="border-2"
         selectsRange={true}
@@ -103,7 +103,7 @@ const Home: NextPage = () => {
         onChange={(update: any) => {
           setDateRange(update);
         }}
-      />
+      /> */}
       <div className="p-5">
         <div className="flex justify-end my-2 hover:text-amber-500 transition-colors">
           <button className="" onClick={gridGapHandler}>
