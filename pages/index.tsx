@@ -69,14 +69,20 @@ const Home: NextPage = () => {
 
   // get Datas dateRange
   useEffect(() => {
-    const startDate = new Date("2022-01-01");
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - 364);
+    startDate.setHours(0, 0, 0, 0);
     const TodayDate = new Date();
     TodayDate.setHours(0, 0, 0, 0);
     const yesterday = new Date(TodayDate);
     yesterday.setDate(yesterday.getDate() - 1);
 
     setTermDays(getDatesInRange(startDate, yesterday));
-    fetch(`api/1/${startDate}/${TodayDate}`)
+    fetch(
+      `api/1/${startDate
+        .toISOString()
+        .slice(0, 10)}/${TodayDate.toISOString().slice(0, 10)}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setNemoDatas(data.nemoDatas);
