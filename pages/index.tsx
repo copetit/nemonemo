@@ -96,7 +96,7 @@ const Home: NextPage = () => {
       </div>
       {/* 
       <DatePicker
-        className="border-2"
+        className="border-1"
         selectsRange={true}
         startDate={startDate}
         endDate={endDate}
